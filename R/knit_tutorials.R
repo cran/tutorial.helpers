@@ -2,10 +2,9 @@
 #'
 #' @description We define "testing" a tutorial as (successfully) running
 #'   `render()` on it. This function renders all the tutorials provided in
-#'   `tutorial_paths`. There is no check to see if the rendered file looks OK,
-#'   just that something has been produced. If a tutorial fails to render, then
-#'   (we assume!) an error will be generated which will then filter up to our
-#'   testing rig.
+#'   `tutorial_paths`. There is no check to see if the rendered file looks OK.
+#'   If a tutorial fails to render, then (we assume!) an error will be generated
+#'   which will then filter up to our testing rig.
 #'
 #' @param tutorial_paths Character vector of the paths to the tutorials to be
 #'   knitted.
@@ -28,10 +27,9 @@ knit_tutorials <- function(tutorial_paths){
   # cause (immediate) failures with Start Tutorial.
 
   for(i in tutorial_paths){
-    cat(paste("Testing tutorial:", i, "\n"))
-    testthat::test_that(paste("rendering", i), {
-      testthat::expect_output(rmarkdown::render(i, output_file = "tutorial.html"),
-                    "tutorial.html")
+     testthat::test_that(paste("Rendering", i), {
+        rmarkdown::render(i, 
+                          output_file = tempfile())
     })
   }
   

@@ -15,6 +15,7 @@ test_that("knit_tutorials() works on legal tutorials", {
 
 
 test_that("knit_tutorials() works on Getting Started tutorial", {
+  
   expect_null(
     knit_tutorials(
       system.file("tutorials/getting-started/tutorial.Rmd", 
@@ -24,9 +25,6 @@ test_that("knit_tutorials() works on Getting Started tutorial", {
 })
 
 test_that("knit_tutorials() fails on illegal tutorials", {
-  expect_error(
-    knit_tutorials("test-data/tutorial_examples/no-exist.Rmd")
-    )
   expect_error(
     knit_tutorials("test-data/tutorial_examples/no-exist.Rmd")
     )

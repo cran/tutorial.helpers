@@ -1,3 +1,15 @@
+# tutorial.helpers 0.2.3
+
+* Fix error on Debian systems caused by attempts to write to the user library. Thanks to Kurt Hornik for pointing out the problem.
+
+* Create "Rstudio Addins" vignette.
+
+* Create "Testing Your Package of Tutorials" vignette.
+
+* Create "Tutorials for Books" vignette.
+
+* Fix error in downloading files by exporting write_answers(). Thanks to Xavier de Pedro Puente for the report.
+
 # tutorial.helpers 0.2.2
 
 * Replace /dontrun{} with if(interactive()){}.
