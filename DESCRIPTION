@@ -1,6 +1,6 @@
 Package: tutorial.helpers
 Title: Helper Functions for Creating Tutorials
-Version: 0.2.3
+Version: 0.2.5
 Authors@R: 
     person(given = "David",
            family = "Kane",
@@ -24,8 +24,8 @@ Imports: dplyr, grDevices, gridExtra, learnr, parsermd, purrr, readr,
 BugReports: https://github.com/ppbds/tutorial.helpers/issues
 URL: https://ppbds.github.io/tutorial.helpers/
 NeedsCompilation: no
-Packaged: 2023-05-12 13:59:55 UTC; dkane
+Packaged: 2023-05-20 19:27:05 UTC; dkane
 Author: David Kane [aut, cre, cph] (<https://orcid.org/0000-0002-6660-3934>)
 Maintainer: David Kane <dave.kane@gmail.com>
 Repository: CRAN
-Date/Publication: 2023-05-12 22:30:02 UTC
+Date/Publication: 2023-05-21 07:10:02 UTC

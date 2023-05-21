@@ -1,3 +1,13 @@
+# tutorial.helpers 0.2.5
+
+* Remove test case for write_answers() to meet 5 mb maximum package size.
+
+# tutorial.helpers 0.2.4
+
+* Add test case for write_answers().
+
+* Fix (really!) error on CRAN Debian systems (caused by attempts to write to the user library) by setting the intermediates_dir argument to tempdir() in the call to render() within knit_tutorials().
+
 # tutorial.helpers 0.2.3
 
 * Fix error on Debian systems caused by attempts to write to the user library. Thanks to Kurt Hornik for pointing out the problem.
