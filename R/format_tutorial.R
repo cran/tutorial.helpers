@@ -7,7 +7,7 @@
 #'
 #' @param file_path Character string.
 #'
-#' @returns Formatted document with correct code and hint chunk labels.
+#' @returns Formatted document with correct exercise, hint and test chunk labels.
 
 format_tutorial <- function(file_path){
 
@@ -87,6 +87,10 @@ format_tutorial <- function(file_path){
 
       has_exercise <- FALSE
     }
+    
+    # DK: Would be nice if, instead of skipping labels which are null, it added
+    # labels, at least in any hint or test chunk. Big annoyance right now is
+    # that we have lots of test chunks with no labels.
 
     # Skip this loop if the current element fits any of the following:
     # 1. not a code chunk
@@ -102,21 +106,31 @@ format_tutorial <- function(file_path){
     # If "hint" is in the current element's label
     # but the element doesn't have the eval = FALSE option,
     # add that option to the element.
+    
+    # DK: Add similar testing/fixing for test chunks.
 
     if (stringr::str_detect(tbl$label[i], "hint") && 
         length(parsermd::rmd_get_options(tbl$ast[i])[[1]]) == 0){
       tbl$ast[i] <- parsermd::rmd_set_options(tbl$ast[i], eval = "FALSE")
     }
 
-    # Create the standardized label of the current element
+    # Create the standardized label of the current element. Hate that we need to
+    # duplicate this code from determine_code_chunk_names.R. Can't we have it in
+    # just one place?
 
-    possible_id_removed_prev <- gsub("\\{#(.*)\\}", "", l)
-
-    possible_id_removed <- gsub("[^a-zA-Z0-9 ]", "", possible_id_removed_prev)
-
-    lowercase_id <- tolower(trimws(possible_id_removed))
-
-    section_id <- trimws(substr(gsub(" ", "-", lowercase_id), 0, 20))
+    # Remove the pattern "{#...}" and non-alphanumeric characters except
+    # spaces and slashes
+    
+    cleaned_l <- gsub("\\{#(.*)\\}", "", l)
+    cleaned_l <- gsub("[^a-zA-Z0-9 /]", "", cleaned_l)
+    
+    # Convert to lowercase, replace spaces and slashes with hyphens, trim to
+    # 30 characters, and trim whitespace
+    
+    section_id <- trimws(cleaned_l)
+    section_id <- substr(gsub("[ /]", "-", tolower(section_id)), 1, 30)
+    section_id <- gsub("-+$", "", section_id)
+    section_id <- gsub("^-+", "", section_id)
 
     # Read the options of the element
 
@@ -163,6 +177,16 @@ format_tutorial <- function(file_path){
 
     if (grepl("-setup$", tbl$label[i])){
       new_label <- paste0(section_id, "-", exercise_number, "-setup")
+      new_ast <- purrr::map(tbl$ast[i], change_chunk_function, "name", new_label)
+      tbl$ast[i] <- new_ast
+      next
+    }
+    
+    # If chunk label ends with "-test", it is recognized as a test chunk,
+    # so the name is exercise name and -test Ex: ex-1-test for ex-1
+    
+    if (grepl("-test$", tbl$label[i])){
+      new_label <- paste0(section_id, "-", exercise_number, "-test")
       new_ast <- purrr::map(tbl$ast[i], change_chunk_function, "name", new_label)
       tbl$ast[i] <- new_ast
       next

@@ -1,3 +1,17 @@
+# tutorial.helpers 0.2.6
+
+* Add determine_code_chunk_name() and determine_exercise_number() functions so that make_exercise() is more manageable. Update logic for determine_code_chunk_name() to handle forward slashes and ending dashes better.
+
+* Add test case for write_answers(). Add associated files to .Rbuildignore so as not to violate the CRAN size restriction of 5 mb.
+
+* Add vignette about downloading answers. Reorder all five vignettes in Articles menu.
+
+* Add Spanish translation of Getting Started tutorial. Thanks to @xavidp!
+
+* Add several more settings changes to set_rstudio_settings(). The set of changes is now quite extensive, but this seems the best approach to ensuring that new students have the best possible learning environment.
+
+* Rewrite set_rstudio_settings() to report any changes made in settings.
+
 # tutorial.helpers 0.2.5
 
 * Remove test case for write_answers() to meet 5 mb maximum package size.
@@ -38,7 +52,7 @@
 
 * Move prep_rstudio_settings() to r4ds.tutorials.
 
-* Publish Getting Started tutorial to Shiny Apps and adjust _pkgdown.yml to make use of it.
+* Publish Getting Started tutorial to Shiny Apps and adjust \_pkgdown.yml to make use of it.
 
 # tutorial.helpers 0.1.1
 
