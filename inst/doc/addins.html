@@ -120,7 +120,7 @@ table, .body h2 { border-bottom: 1px solid #666; }
 .body .appendix, .appendix ~ h2 { border-bottom-style: dashed; }
 .footnote-ref a::before { content: "["; }
 .footnote-ref a::after { content: "]"; }
-.footnotes::before {
+section.footnotes::before {
   content: "";
   display: block;
   max-width: 20em;
@@ -139,8 +139,6 @@ table, .body h2 { border-bottom: 1px solid #666; }
 </style>
 </head>
 <body>
-<div class="include-before">
-</div>
 <div class="frontmatter">
 <div class="title"><h1>Rstudio Addins</h1></div>
 <div class="author"><h2>David Kane</h2></div>
@@ -206,10 +204,8 @@ question_text(NULL,
 <p>The <strong>learnr</strong> package does not allow for Hints to written exercises. We could add a Test chunk, but that rarely makes sense for a written exercise. The main counter-example is a question which asks students to run an R command from the Console and then copy the command and the result of the command as their answer. Even though they are not submitting simple code as their answer, it can make sense to have a test chunk which executes the same R code which you are asking them to run, just to ensure that it will work for them.</p>
 <h3 id="format-tutorial-chunk-labels">Format Tutorial Chunk Labels</h3>
 <p>We often need to add a new Exercise in the middle of a collection of other Exercises. Or, we want to delete one Exercise from the middle of the collection. In either scenario, our Exercises are now mis-numbered. We either have two Exercise 5’s or we go straight from Exercise 4 to Exercise 6. We want to renumber all the remaining Exercises so that there are no duplicates or missing numbers.</p>
-<p>The “Format Tutorial Chunk Labels” addin accomplishes this renumbering. But it also does more, changing all the code chunk names to be consistent with the new Exercise numbers. Finally, it ensures that all code chunk labels follow our standard: begin with (up to 20 characters from) the Section Title, remove special characters, replace spaces with dashes, and make all letters lowercase.</p>
-<p>Since the code chunk labels (derived from the title of the Section in which the Exercise resides) have a hard cutoff at 20 characters, try to make sure that your Section titles are different somewhere in the first 20 characters (including spaces). If not, the tutorial will not run since unique code chunk labels are required.</p>
-</div>
-<div class="include-after">
+<p>The “Format Tutorial Chunk Labels” addin accomplishes this renumbering. But it also does more, changing all the code chunk names to be consistent with the new Exercise numbers. Finally, it ensures that all code chunk labels follow our standard: begin with (up to 30 characters from) the Section Title, remove special characters, replace spaces with dashes, and make all letters lowercase.</p>
+<p>Since the code chunk labels (derived from the title of the Section in which the Exercise resides) have a hard cutoff at 30 characters, try to make sure that your Section titles are different somewhere in the first 30 characters (including spaces). If not, the tutorial will not run since unique code chunk labels are required.</p>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js" defer></script>

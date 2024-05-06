@@ -1,6 +1,6 @@
 Package: tutorial.helpers
 Title: Helper Functions for Creating Tutorials
-Version: 0.2.6
+Version: 0.2.7
 Authors@R: 
     person(given = "David",
            family = "Kane",
@@ -14,18 +14,19 @@ Description: Helper functions for creating, editing, and testing tutorials
 Depends: R (>= 4.1.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 VignetteBuilder: knitr
-Suggests: checkmate, knitr, roxygen2, rsconnect, rvest, testthat (>=
-        3.0.0), tidyverse
+Suggests: checkmate, knitr, roxygen2, rsconnect, rvest, shinytest,
+        testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Imports: dplyr, grDevices, gridExtra, learnr, parsermd, purrr, readr,
         rmarkdown, rstudioapi, shiny, stringr, tibble
-BugReports: https://github.com/ppbds/tutorial.helpers/issues
-URL: https://ppbds.github.io/tutorial.helpers/
+BugReports: https://github.com/PPBDS/tutorial.helpers/issues
+URL: https://ppbds.github.io/tutorial.helpers/,
+        https://github.com/PPBDS/tutorial.helpers
 NeedsCompilation: no
-Packaged: 2024-01-16 23:46:15 UTC; dkane
+Packaged: 2024-05-06 22:40:03 UTC; dkane
 Author: David Kane [aut, cre, cph] (<https://orcid.org/0000-0002-6660-3934>)
 Maintainer: David Kane <dave.kane@gmail.com>
 Repository: CRAN
-Date/Publication: 2024-01-17 00:00:02 UTC
+Date/Publication: 2024-05-06 23:00:02 UTC

@@ -30,8 +30,11 @@
 
 make_exercise <- function(type = "code", file_path = NULL){
 
-  # DK: Need to fix behavior when it is called outside an Rmd with Section
+  # Need to fix behavior when it is called outside an Rmd with Section
   # headings.
+  
+  # Function should first, check all the section names, confirming that they are
+  # all unique, and reporting an error if not. Add this!
   
   # To create the code chunks, we need to know the next exercise number and the
   # section title.
@@ -42,10 +45,14 @@ make_exercise <- function(type = "code", file_path = NULL){
   # Make new exercise skeleton by inserting the appropriate label and exercise
   # number at the right places.
   
+  # Both this function and format_tutorial() encode the information about the
+  # correct code chunk labels for exercises. That is bad! We should encode that
+  # stuff in just one location.
+  
   new_exercise <-
     dplyr::case_match(
       type,
-      "code"       ~ sprintf("### Exercise %s\n\n\n```{r %s-%s, exercise = TRUE}\n\n```\n\n<button onclick = \"transfer_code(this)\">Copy previous code</button>\n\n```{r %s-%s-hint, eval = FALSE}\n\n```\n\n```{r %s-%s-test, include = FALSE}\n\n```\n\n###\n\n",
+      "code"       ~ sprintf("### Exercise %s\n\n\n```{r %s-%s-ex, exercise = TRUE}\n\n```\n\n<button onclick = \"transfer_code(this)\">Copy previous code</button>\n\n```{r %s-%s-hint, eval = FALSE}\n\n```\n\n```{r %s-%s-test, include = FALSE}\n\n```\n\n###\n\n",
                              exercise_number,
                              section_id,
                              exercise_number,
@@ -53,11 +60,11 @@ make_exercise <- function(type = "code", file_path = NULL){
                              exercise_number,
                              section_id,
                              exercise_number),
-      "no-answer"  ~ sprintf("### Exercise %s\n\n\n```{r %s-%s}\nquestion_text(NULL,\n\tanswer(NULL, correct = TRUE),\n\tallow_retry = TRUE,\n\ttry_again_button = \"Edit Answer\",\n\tincorrect = NULL,\n\trows = 3)\n```\n\n###\n\n",
+      "no-answer"  ~ sprintf("### Exercise %s\n\n\n```{r %s-%s-ex}\nquestion_text(NULL,\n\tanswer(NULL, correct = TRUE),\n\tallow_retry = TRUE,\n\ttry_again_button = \"Edit Answer\",\n\tincorrect = NULL,\n\trows = 3)\n```\n\n###\n\n",
                              exercise_number,
                              section_id,
                              exercise_number),
-      "yes-answer" ~ sprintf("### Exercise %s\n\n\n```{r %s-%s}\nquestion_text(NULL,\n\tmessage = \"Place correct answer here.\",\n\tanswer(NULL, correct = TRUE),\n\tallow_retry = FALSE,\n\tincorrect = NULL,\n\trows = 6)\n```\n\n###\n\n",
+      "yes-answer" ~ sprintf("### Exercise %s\n\n\n```{r %s-%s-ex}\nquestion_text(NULL,\n\tmessage = \"Place correct answer here.\",\n\tanswer(NULL, correct = TRUE),\n\tallow_retry = FALSE,\n\tincorrect = NULL,\n\trows = 6)\n```\n\n###\n\n",
                              exercise_number,
                              section_id,
                              exercise_number))

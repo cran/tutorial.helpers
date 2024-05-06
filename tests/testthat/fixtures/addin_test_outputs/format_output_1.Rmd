@@ -12,6 +12,12 @@ This is test 1 for the addin that formats code chunk labels. This covers the bas
 
 ### Exercise 1
 
+Purpose of this initial code chunk is to ensure that format tutorial does not act on it. No code chunk without a label should be changed.
+
+```{r}
+
+```
+
 ```{r section-1-1, exercise = TRUE}
 
 ```
@@ -19,6 +25,10 @@ This is test 1 for the addin that formats code chunk labels. This covers the bas
 <button onclick = "transfer_code(this)">Copy previous code</button>
 
 ```{r section-1-1-hint-1, eval = FALSE}
+
+```
+
+```{r section-1-1-test, include = FALSE}
 
 ```
 
@@ -33,6 +43,12 @@ This is test 1 for the addin that formats code chunk labels. This covers the bas
 <button onclick = "transfer_code(this)">Copy previous code</button>
 
 ```{r section-1-2-hint-1, eval = FALSE}
+
+```
+
+Testing to see if an unlabeled code chunk at the end also is unchanged, as it should be.
+
+```{r}
 
 ```
 
@@ -124,4 +140,5 @@ aslkdjasld
 
 ```
 
-###
+### 
+

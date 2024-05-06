@@ -55,7 +55,7 @@ table, .body h2 { border-bottom: 1px solid #666; }
 .body .appendix, .appendix ~ h2 { border-bottom-style: dashed; }
 .footnote-ref a::before { content: "["; }
 .footnote-ref a::after { content: "]"; }
-.footnotes::before {
+section.footnotes::before {
   content: "";
   display: block;
   max-width: 20em;
@@ -74,8 +74,6 @@ table, .body h2 { border-bottom: 1px solid #666; }
 </style>
 </head>
 <body>
-<div class="include-before">
-</div>
 <div class="frontmatter">
 <div class="title"><h1>Testing Your Package of Tutorials</h1></div>
 <div class="author"><h2>David Kane</h2></div>
@@ -111,8 +109,6 @@ test_that(&quot;All tutorials have the expected components&quot;, {
 <p>The third step is only relevant for tutorial creators who follow <a href="instructions.html">our advice</a> concerning tutorial construction. In particular, <code>check_tutorial_defaults()</code> ensures that, somewhere in each tutorial, you have included the same key components as exist in the “Helpers Tutorial” R Markdown template.</p>
 <p><code>check_tutorial_defaults()</code> also fails if you do not have <code>library(learnr)</code> and <code>library(tutorial.helpers)</code> in your tutorial.</p>
 <p>Both <code>knit_tutorials()</code> and <code>check_tutorial_defaults()</code> return <code>NULL</code>, which is why we use <code>expect_null()</code>.</p>
-</div>
-<div class="include-after">
 </div>
 </body>
 </html>

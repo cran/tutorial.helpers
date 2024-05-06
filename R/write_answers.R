@@ -32,6 +32,9 @@
 
 write_answers <- function(file, session, is_test = FALSE){
   
+  # Seems like there are much easier ways of handling this problem. See:
+  # https://mastering-shiny.org/action-transfer.html#downloading-reports
+  
   suffix <- tools::file_ext(file)
   
   stopifnot(suffix %in% c("html", "rds", "pdf"))
@@ -42,7 +45,8 @@ write_answers <- function(file, session, is_test = FALSE){
   # https://github.com/mattblackwell/qsslearnr/blob/main/R/submission.R for an
   # example.
   
-
+  # For example, get_tutorial_state()$tutorial_version seems useful, as does
+  # $user_id.
 
   # Data Structure of a learnr submission object
 

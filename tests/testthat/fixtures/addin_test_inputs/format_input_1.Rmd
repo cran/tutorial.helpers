@@ -12,6 +12,13 @@ This is test 1 for the addin that formats code chunk labels. This covers the bas
 
 ### Exercise 1
 
+Purpose of this initial code chunk is to ensure that format tutorial does not act on it. No code chunk without a label should be changed.
+
+```{r}
+
+```
+
+
 
 ```{r incorrect-label, exercise = TRUE}
 
@@ -22,6 +29,11 @@ This is test 1 for the addin that formats code chunk labels. This covers the bas
 ```{r incorrect-label, eval = FALSE}
 
 ```
+
+```{r -test, include=FALSE}
+
+```
+
 
 ###
 
@@ -37,6 +49,13 @@ This is test 1 for the addin that formats code chunk labels. This covers the bas
 ```{r incorrect-label, eval = FALSE}
 
 ```
+
+Testing to see if an unlabeled code chunk at the end also is unchanged, as it should be.
+
+```{r}
+
+```
+
 
 ###
 

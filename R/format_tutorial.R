@@ -8,6 +8,7 @@
 #' @param file_path Character string.
 #'
 #' @returns Formatted document with correct exercise, hint and test chunk labels.
+#' @export
 
 format_tutorial <- function(file_path){
 
@@ -31,7 +32,29 @@ format_tutorial <- function(file_path){
   rmd <- parsermd::parse_rmd(file_path)
 
   tbl <- tibble::as_tibble(rmd)
-
+  
+  # parsermd 0.1.3 created a difficult to diagnose bug for me. It labels any
+  # unlabelled R code chunk as "unnamed-chunk-n" with "n" incrementing. That is
+  # very bad! You should not add labels which do not exist. So, I do a total
+  # hack to just remove those labels from the final document. Of course, this
+  # will hose any user who actually has a code chunk whose label matches
+  # "unnamed-chunk-n" with "n" as any integer, but what are you going to do?
+  # This hack was easier (?) than trying to work directly with objects of class
+  # "rmd_ast" "list"
+  
+  for(i in seq_len(nrow(tbl))){
+    if(grepl("^unnamed-chunk-\\d+$", tbl[i, "label"])){
+      
+      # Once we get the correct row, we do two things. First, we remove the
+      # label from the tibble. Not sure why this is necessary. Is the label
+      # really used later? Second, we need to change the ast itself.
+      
+      tbl$label[i] <- NA
+      new_ast <- purrr::map(tbl$ast[i], change_chunk_function, "name", "")
+      tbl$ast[i] <- new_ast
+    }
+  }
+  
   # Set up tracker variables for the loop
 
   hint_count <- 0
@@ -49,6 +72,12 @@ format_tutorial <- function(file_path){
 
   # Each code chunk will go through a series of conditions to determine what
   # type of code chunk it is and what the label should be.
+  
+  # This entire loop should be refactored. Not sure how! Should probably start
+  # by creating the exercise code chunk name correctly. Once you have that, the
+  # name for the hint and the test code chunks is simple enough. Note the
+  # trickiness of keeping count of the hints. Maybe don't allow more than one
+  # hint?
 
   for (i in seq_along(tbl$sec_h2)){
 
@@ -107,7 +136,8 @@ format_tutorial <- function(file_path){
     # but the element doesn't have the eval = FALSE option,
     # add that option to the element.
     
-    # DK: Add similar testing/fixing for test chunks.
+    # DK: Add similar testing/fixing for test chunks. Or, better, make this
+    # hackery go away. If writers forget eval = FALSE, what can we do?
 
     if (stringr::str_detect(tbl$label[i], "hint") && 
         length(parsermd::rmd_get_options(tbl$ast[i])[[1]]) == 0){
@@ -124,8 +154,8 @@ format_tutorial <- function(file_path){
     cleaned_l <- gsub("\\{#(.*)\\}", "", l)
     cleaned_l <- gsub("[^a-zA-Z0-9 /]", "", cleaned_l)
     
-    # Convert to lowercase, replace spaces and slashes with hyphens, trim to
-    # 30 characters, and trim whitespace
+    # Convert to lowercase, replace spaces and slashes with hyphens, trim to 30
+    # characters, and trim whitespace and hyphens at the start and beginning.
     
     section_id <- trimws(cleaned_l)
     section_id <- substr(gsub("[ /]", "-", tolower(section_id)), 1, 30)
@@ -214,8 +244,8 @@ format_tutorial <- function(file_path){
 
   # This is quite interesting.
   #
-  # The parsermd already has a as_document function that should've taken care of
-  # turning the changed Rmd structure into raw text.
+  # The parsermd already has an as_document function that should've taken care
+  # of turning the changed Rmd structure into raw text.
   #
   # However, there was a thing with Rmarkdown sections in the structure where
   # each time it is updated, it adds a newline to the section because while
@@ -244,6 +274,17 @@ format_tutorial <- function(file_path){
 
     new_doc <- paste(new_doc, new_txt, sep = "\n")
   }
+  
+  # I don't really understand how the above code works. But I can see that it
+  # always results in an output doc with a newline at the beginning, which I
+  # don't think we want. At least, it looks weird for the test cases. (But might
+  # be a good idea in interactive use. If so, add the newline when it is
+  # interactive.)
+  
+  if(substr(new_doc, 1, 1) == "\n") {
+    new_doc <- substring(new_doc, 2)
+  }
+
 
   new_doc
 }
