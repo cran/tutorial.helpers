@@ -1,3 +1,11 @@
+# tutorial.helpers 0.3.0
+
+* Add show_file().
+
+* Add process_submissions().
+
+* Remove the ability to save answers as either RDS or PDF files.
+
 # tutorial.helpers 0.2.7
 
 * Get test cases for `format_tutorial()` working again.
