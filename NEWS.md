@@ -1,3 +1,15 @@
+# tutorial.helpers 0.4.2
+
+# tutorial.helpers 0.4.1
+
+* Change original tutorial title to "Tutorials in RStudio."
+
+* Add new tutorial: "Tutorials in Positron."
+
+* Add set_positron_settings() function.
+
+* Rewrite format_tutorial() to not use **parsermd** package.
+
 # tutorial.helpers 0.3.1
 
 * Clean up "Instructions for Writing R Tutorials" vignette.
