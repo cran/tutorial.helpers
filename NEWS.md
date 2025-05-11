@@ -1,6 +1,10 @@
-# tutorial.helpers 0.4.2
+# tutorial.helpers 0.5.0
 
-# tutorial.helpers 0.4.1
+* make_exercise() no longer includes '-ex' in code chunk labels for exercises.
+
+* Fix format_tutorial() bugs.
+
+# tutorial.helpers 0.4.2
 
 * Change original tutorial title to "Tutorials in RStudio."
 

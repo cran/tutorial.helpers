@@ -2,9 +2,13 @@
 % Please edit documentation in R/set_positron_settings.R
 \name{set_positron_settings}
 \alias{set_positron_settings}
-\title{Select Good Positron Settings}
+\title{Configure Positron Settings}
 \usage{
-set_positron_settings(home_dir = path.expand("~"), set.binary = TRUE)
+set_positron_settings(
+  home_dir = path.expand("~"),
+  set.binary = TRUE,
+  positron_settings = list()
+)
 }
 \arguments{
 \item{home_dir}{Optional character string specifying the base directory to use
@@ -14,31 +18,61 @@ testing or custom setups.}
 \item{set.binary}{Logical, defaults to \code{TRUE}. If \code{TRUE}, runs
 \code{set_binary_only_in_r_profile()} after applying settings to configure binary
 options in the R profile.}
+
+\item{positron_settings}{List of settings to apply. Can be structured as a list of
+lists where each sub-list contains a setting name and value (e.g.,
+\code{list(list("rstudio.keymap.enable", TRUE))}), or as a named list
+(e.g., \code{list("rstudio.keymap.enable" = TRUE)}). Defaults to an empty list,
+which means no settings will be changed.}
 }
 \value{
-Invisible \code{NULL}. The function’s purpose is its side effect: modifying
+Invisible \code{NULL}. The function's purpose is its side effect: modifying
 or creating the \code{settings.json} file. It also prints messages to the console
 indicating actions taken.
 }
 \description{
 Locates or creates the Positron \code{settings.json} file on Windows or macOS,
-then ensures the \code{"rstudio.keymap.enable": true} setting is present to enable
-RStudio keyboard shortcuts. If the setting already exists and is \code{true}, no
-changes are made; otherwise, it is added or updated. \code{set.binary} argument
-determines if \code{options(pkgType = 'binary')} should be added to the \code{.Rprofile}.
+then updates those settings based on the provided configuration list.
+Users can specify settings like RStudio keyboard shortcuts. The function can
+also optionally configure binary package preferences in the \code{.Rprofile}.
 }
 \details{
 This function uses the \code{jsonlite} package to handle JSON operations and
-creates the necessary directory structure if it doesn’t exist. It is
+creates the necessary directory structure if it doesn't exist. It is
 designed to work cross-platform by detecting the operating system and
-constructing the appropriate file path to Positron’s user settings.
+constructing the appropriate file path to Positron's user settings. The
+function applies the settings provided in the \code{positron_settings} parameter.
+By default, no settings are changed unless explicitly specified.
 }
 \examples{
 \dontrun{
-  # Run the function with default settings
+  # Apply no settings changes, but ensure settings.json exists
   set_positron_settings()
-  # Run with a custom home directory and disable binary setting
-  set_positron_settings(home_dir = tempdir(), set.binary = FALSE)
+  
+  # Enable RStudio keyboard shortcuts using list of lists structure
+  set_positron_settings(
+    positron_settings = list(list("rstudio.keymap.enable", TRUE))
+  )
+  
+  # Enable RStudio keyboard shortcuts using named list structure
+  set_positron_settings(
+    positron_settings = list("rstudio.keymap.enable" = TRUE)
+  )
+  
+  # Apply multiple settings using named list
+  set_positron_settings(
+    positron_settings = list(
+      "rstudio.keymap.enable" = TRUE,
+      "editor.wordWrap" = "on"
+    )
+  )
+  
+  # Apply settings with a custom home directory and disable binary setting
+  set_positron_settings(
+    home_dir = tempdir(), 
+    set.binary = FALSE,
+    positron_settings = list("rstudio.keymap.enable" = TRUE)
+  )
 }
 
 }
