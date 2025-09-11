@@ -206,7 +206,7 @@ Should work even if there are no labels, even if the comma is not included. The 
 
 ###
 
-## Exercises 
+## Exercises
 ### 
 
 Weird case which used to produce exercises--1 instead of exercise-1.
@@ -217,7 +217,7 @@ Weird case which used to produce exercises--1 instead of exercise-1.
 
 ```
 
-## Hask marks 
+## Hask marks
 ### 
 
 An example to conform that hashmarks within four backtick environments do not mess up the reformatting. This test confirms that the exercise section number and the code chunk label get changed.
@@ -262,3 +262,78 @@ Test to make sure that this four backtick environment does not cause trouble. No
 ```{r four-ticks-problem-1, exercise = TRUE}
 
 ```
+
+## GitHub Pages Output Problem
+### 
+
+Problem is that the Terminal output from GitHub Pages publishing command causes problems.
+
+````
+dkane@macbook project-1 % quarto publish gh-pages quarto-1.qmd
+? Publish site to https://davidkane9.github.io/project-1/ using gh-pages? (Y/n) › Yes
+````
+
+The first time you publish, Quarto will confirm the location, which is just the standard GitHub Pages address, using your user name and the repo name.
+
+````
+Saved working directory and index state WIP on main: 71e6d06 initial version
+Switched to a new branch 'gh-pages'
+[gh-pages (root-commit) b8263f3] Initializing gh-pages branch
+remote: 
+remote: Create a pull request for 'gh-pages' on GitHub by visiting:        
+remote:      https://github.com/davidkane9/project-1/pull/new/gh-pages        
+remote: 
+To https://github.com/davidkane9/project-1.git
+ * [new branch]      HEAD -> gh-pages
+ ````
+
+ Quarto interacts with your GitHub repo directly, creating a new branch, `gh-pages`, which will be used to construct the website. 
+
+````
+[✓] Deploying gh-pages branch to website (this may take a few minutes)
+[✓] Published to https://davidkane9.github.io/project-1/
+
+dkane@macbook project-1 % 
+```` 
+
+
+### Exercise 1
+
+ 
+
+```{r github-pages-output-problem-1, exercise = TRUE}
+
+```
+
+## Space Test Case 1
+###
+
+This test ensures that (mistaken) extra spaces in a section name are replaced by a single dash in code chunk names rather than multiple dashes.
+
+### Exercise 1
+
+```{r space-test-case-1-1, exercise = TRUE}
+
+```
+
+### Exercise 2
+
+Had some problems with the new version of "no-answer" type questions. In particular, format_tutorial() had trouble with the test code chunk, perhaps because of the combination of -test in the code chunk name and `echo = TRUE`. The current problem is that the code chunk name in the test code block is not updated by check_format_tutorial().
+
+```{r space-test-case-1-2}
+question_text(NULL,
+	answer(NULL, correct = TRUE),
+	allow_retry = TRUE,
+	try_again_button = "Edit Answer",
+	incorrect = NULL,
+	rows = 5)
+```
+
+###
+
+```{r space-test-case-1-2-test, echo = TRUE}
+
+```
+
+###
+

@@ -2,19 +2,13 @@
 % Please edit documentation in R/make_exercise.R
 \name{make_exercise}
 \alias{make_exercise}
-\alias{make_no_answer}
-\alias{make_yes_answer}
 \title{Add a tutorial code exercise or question to the active document}
 \usage{
-make_exercise(type = "code", file_path = NULL)
-
-make_no_answer()
-
-make_yes_answer()
+make_exercise(type = "no-answer", file_path = NULL)
 }
 \arguments{
 \item{type}{Character of question type. Must be one of "code", "no-answer",
-or "yes-answer".}
+or "yes-answer". Abbreviations such as "no", "yes", and "co" are allowed.}
 
 \item{file_path}{Character path to a file. If NULL, the RStudio active
 document is used, which is the default behavior. An actual file path is
@@ -25,15 +19,8 @@ Exercise skeleton corresponding to the \code{type} argument.
 }
 \description{
 When writing tutorials, it is handy to be able to insert the
-skeleton for a new code exercise or question. We bind \code{make_exercise()} and
-friends as an RStudio add-in to provide this functionality. Note that the
+skeleton for a new code exercise or question. Note that the
 function determines the correct exercise number to use and also adds
-appropriate code chunk names, based on the exercise number and section
+appropriate code chunk labels, based on the exercise number and section
 title.
-}
-\details{
-It appears that the RStudio addins must have function names only as
-the Binding value. In other words, you can't have \code{make_exercise(type = 'no-answer')} as the value. So, we need two extra functions ---
-\code{make_no_answer()} and \code{make_yes_answer()} ---which just call
-\code{make_exercise()} while passing in the correct argument.
 }

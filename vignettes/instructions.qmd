@@ -1,3 +1,4 @@
+
 ---
 title: "Instructions for Writing R Tutorials"
 author: David Kane
@@ -7,6 +8,8 @@ vignette: >
   %\VignetteIndexEntry{Instructions for Writing R Tutorials}
   %\VignetteEncoding{UTF-8}
 ---
+
+<!-- DK: Some things that work in QMD (because it uses quarto to render) do not work in RMD (because it uses R to render). -->
 
 <!-- Expand processing_submissions section. -->
 
@@ -19,6 +22,10 @@ vignette: >
 *Every word matters. Never waste a student's time.*
 
 *Drop some knowledge with each exercise.*
+
+*Use our tools, especially functions like [`check_current_tutorial()`](https://ppbds.github.io/tutorial.helpers/reference/check_current_tutorial.html) and [`make_exercise()`](https://ppbds.github.io/tutorial.helpers/reference/exercise_creation.html).*
+
+*Do not build code line-by-line. That is the AI's job.*
 
 ## Introduction
 
@@ -38,13 +45,15 @@ We are building a "[pit of success](https://ricomariani.medium.com/the-pit-of-su
 
 ## Set Up
 
-Tutorials themselves live in a directory within `inst/tutorials` in whichever package you are working on. We recommend that this directory name be a combination of a prefix number (which indicate the week/chapter with which a tutorial is associated and/or the order in which to do it) and a name, which corresponds to the `id` of the tutorial. Within each directory is an R Markdown file and, sometimes, other material like an `images` or `data` directory. The prefix number determines the order in which tutorials appear in the Tutorial tab. By default, we name the R Markdown file `tutorial.Rmd`, but any name works as long as the file has the appropriate YAML header.
+Tutorials themselves live in a directory within `inst/tutorials` in whichever package you are working on. We recommend that this directory name be a combination of a prefix number (which indicate the week/chapter with which a tutorial is associated and/or the order in which to do it) and a name, which is generally shorter than the full title of the tutorial although similar to it. Within each directory is an R Markdown file and, sometimes, other material like an `images` or `data` directory. The prefix number determines the order in which tutorials appear when someone gets around to creating a tutorial selector extension for Positron. By default, we name the R Markdown file `tutorial.Rmd`, but any name works as long as the file has the appropriate YAML header.
 
 To create a new tutorial, use `File -> New File -> R Markdown...`. Choose the "From Template" option and then select "Helpers Tutorial" from the **tutorial.helpers** package. Follow the instructions.
 
-The `id` value is important. It should be the same as the directory in which the tutorial is located, but with any leading numbers removed. It is used for the name of the answer file which students save at the end of the tutorial. 
+The `id` value is important. It should be the same as the directory in which the tutorial is located. It is used for the name of the answer file which students save at the end of the tutorial. 
 
-Note that tutorials must be [R Markdown](https://rmarkdown.rstudio.com/) documents, meaning that their suffix is `.Rmd`. You can not (yet) use Quarto documents with tutorials. Fortunately, most of what you need which works in Quarto also works in R Markdown. The main difference is that code chunk options appear within the `{}`. Don't worry about this detail. Just use the provided [RStudio Addin functions](addins.html).
+<!-- DK: Matching directory and id may no longer be necessary once the tutorial selector extension is built.  -->
+
+Note that tutorials must be [R Markdown](https://rmarkdown.rstudio.com/) documents, meaning that their suffix is `.Rmd`. You can not (yet) use Quarto documents with tutorials. Fortunately, most of what you need which works in Quarto also works in R Markdown. The main difference is that code chunk options appear within the `{}`. Don't worry about this detail. 
 
 There is a `setup` code chunk at the top of a tutorial. You must have `library(learnr)` and, if you use our tools, `library(tutorial.helpers)` in this chunk. Our template also provides useful settings for various options.
 
@@ -78,13 +87,14 @@ The one topic which only has the double hash (##) and not a triple hash (###) on
 
 Each topic begins with a sentence or two about what this group of exercises is trying to accomplish. Example:
 
-````markdown
+
+````{verbatim}
 ## Interacting with sites with `GET()`
 ###
 
 In order to get data from an API, we use the **httr** package. 
-The package is designed to imitate standard HTTP in R. Read 
-more about HTTP [here](https://www.jmarshall.com/easy/http/).
+The package is designed to imitate standard HTTP in R. 
+Read more about HTTP [here](https://www.jmarshall.com/easy/http/).
 
 ### Exercise 1
 ````
@@ -170,7 +180,7 @@ Second, the instruction requires that students write some code. Good instruction
 
 Third, any exercise which requires the copying of code from the prior exercise should place the *Copy previous code* button below the exercise code chunk.
 
-````markdown
+````{verbatim}
 <button onclick = "transfer_code(this)">Copy previous code</button>
 ````
 
@@ -317,7 +327,7 @@ x <- read_csv("data/myfile.csv")
 
 in an R code chunk, presumably in the global `setup` chunk. But, if you try to execute that line of code with `Command + Return`, it will fail because, by default, you are located in the main directory of **your.package** when you start working on your tutorials. Using `setwd()` will solve this problem.
 
-````markdown
+````{verbatim}
 > getwd()
 [1] "/Users/davidkane/Desktop/projects/r4ds.tutorials"
 > setwd("inst/tutorials/031-data-files/")
@@ -360,7 +370,7 @@ A knowledge drop should not be a road sign. Example: "In the next section we wil
   
 * Use high quality links. 
   * The second edition of [*R for Data Science*](https://r4ds.hadley.nz/) is amazing. Link to it as often as you can.
-  * Anything associated with [Posit](https://posit.co/) (formerly named RStudio) is high quality. Examples include sites associated with [Tidyverse](https://www.tidyverse.org/) and [Tidymodels](https://www.tidymodels.org/).
+  * Anything associated with [Posit](https://posit.co/) is high quality. Examples include sites associated with [Tidyverse](https://www.tidyverse.org/) and [Tidymodels](https://www.tidymodels.org/).
 
 * Avoid links to low quality sites like `https://rdrr.io/` , `https://www.rdocumentation.org/`, and `https://www.datamentor.io/`. Any site which uses ads should be avoided.
 
@@ -377,9 +387,9 @@ See `?readr::locale` for [details](https://readr.tidyverse.org/articles/locales.
 Note how we concisely provide both the command which brings up the help page and a link to the help page itself. 
 
 
-### Addins
+### Functions for Working with Tutorials
 
-The **tutorial.helpers** package provides a collection of RStudio Addins which facilitate the creation and testing of tutorial packages. Read about them in the "[Rstudio Addins](addins.html)" vignette. Three of the vignettes create new exercises. A fourth, "Format Tutorial Chunk Labels," renumbers all the exercises in a tutorial if you add or remove an exercise. It also ensures consistency in code chunk labels. Highly recommended!
+The **tutorial.helpers** package provides a collection of functions which facilitate the creation and testing of tutorial packages. Read about them in the “[Functions for Working with Tutorial](https://ppbds.github.io/tutorial.helpers/articles/instructions.html)” vignette. Three of the vignettes create new tutorial exercises. A [fourth](https://ppbds.github.io/tutorial.helpers/articles/testing.html) demonstrates how to test the tutorials in your package. Highly recommended!
 
 
 ## Inputs
@@ -446,41 +456,75 @@ Because students will complete the tutorials using screens of very different wid
 
 ### Complex text
 
-You sometimes want to include "complex" text in a tutorial. This is most common when trying to teach students how to use R code chunks and other strings which Rmarkdown wants to process in certain ways. You can usually place such code in an environment started by four backticks along with the `{verbatim}` and then ended with four more backticks. 
+You sometimes want to include "complex" text in a tutorial. This is most common when trying to teach students how to use R code chunks and other strings which R markdown wants to process in certain ways. You can sometimes get away by placing such text in environments surrounded by three, or even four, backticks. The plain three or four backtick environments create a plain code block and content inside is displayed as-is. No syntax highlighting or execution is applied, and they show example code or text exactly as typed. Four backtick environments allow three backticks to be written within the block. This works often, but not always. Comments characters like `#` are especially problematic. We also use the [**parsermd**](https://rundel.github.io/parsermd/) package behind the scenes. It does not work as well as one might like.
 
+Further complexity arises because tutorials are R markdown whereas all our other work is in Quarto. In Quarto documents (like this vignette), you can use an environment started by four backticks along with `{verbatim}` and then ended with four more backticks. This won't work in R markdown.
 
+The `<pre><code>` trick solves this problem. You add this before and after a code chunk to a tutorial.
+
+````{verbatim}
+<pre><code>```{r}
+1 + 1
+```</code></pre>
+````
+
+If you want to display an R code chunk nested inside a four backticks environment, you can replace the four backticks with `<pre><code>` like this
+
+````{verbatim}
+<pre><code>
+> tutorial.helpers::show_file("quarto-1.qmd")
+---
+title: "Quarto 1"
+author: David Kane
+format: html
+execute: 
+  echo: false
+---
+<pre><code>```{r}
+suppressPackageStartupMessages(library(tidyverse))
+library(palmerpenguins)
+```</code></pre>
+>
+</code></pre>
+````
+
+The `<pre><code>` serves the same purpose as the four backticks but it displays R code chunks verbatim. 
 
 ## Processing submissions
 
-Instructors have different needs and priorities when it comes to processing student answers. For now, we provide one function, `tutorial.helpers::process_submissions()` to help them. Read the help page: `?process_submissions`. There are many arguments and options.
-
+Instructors have different needs and priorities when it comes to processing student answers. We provide the functions `submissions_summary()` and `submissions_answers()` to help them. 
 
 ## Checks 
 
-The simplest way to test the `tutorial.Rmd` with which you are working on is to hit the "Run Document" button. This is the same thing as running `rmarkdown::render()` on that file:
+The simplest way to test the `tutorial.Rmd` with which you are working on is to run `rmarkdown::render()` on that file. This function takes your R Markdown document and transforms it into a single HTML file that you can open in a browser to see how your tutorial will appear to users. 
+
+You can do this by running:
 
 ```{r, eval = FALSE}
-rmarkdown::render("inst/tutorials/02-terminal/tutorial.Rmd")
+rmarkdown::render("file_path")
 ```
 
-This assumes that you are located in the main directory of **your.package**, as you normally would be. I am not sure if this will catch all potential errors, but it will catch many issues, and it is very quick. Replace `02-terminal` with the appropriate directory.
-
+This assumes that you are located in the main directory of **your.package**, as you normally would be. While this approach may not catch every possible error, it will identify many common issues and runs very quickly, making it an efficient way to test your tutorial. Remember to replace `file_path` with whatever directory name is appropriate for your specific tutorial. If you're using Positron as your IDE, it's important *not* to use the `Cmd/Ctrl + Shift + K` shortcut, as this will execute `quarto render` instead of the R Markdown rendering process you actually need, since tutorials are R Markdown documents rather than Quarto documents.
 
 ### Test before submitting a pull request
 
-Once you are done editing a tutorial, you need to make sure it works before you submit a pull request to the package maintainer.
+Once you are done editing a tutorial, you need to make sure it works before you submit a pull request to the package maintainer. There are several ways to do checks:
 
-1. Click "Install and Restart" from the Build tab. Then, hit "Start Tutorial" in the Tutorial tab. This mimics the experience that users will have. This will catch some common errors, like having two code chunks with the same name. (I am not sure if this does more or less than the simple test as above.)
+1. Type `rmarkdown::render("file_path")` in the console. This will give you a file with the same file name and a `.html` extension. Right click the file and select `Open in Browser`. This open up a webpage and you can check the tutorial for some errors. It is smart to use `rmarkdown::render("file_path")` regularly since it identify syntax errors quickly. A good practice is to render after completing each exercise. 
 
-2. Do a full test, which means running `R CMD check`. Go to the top right window of RStudio. Click the Build pane and hit the "Check" button (with the green check mark). You will then see a bunch of code and tests running. Make sure it says "OK" next to “testthat”. You should always run this before submitting a pull request.
+2. Do a full test, which means running `devtools::check()`. This is the equivalent of `R CMD check` which validates package structure, documentation, tests, and compliance with CRAN standards. A good result would be `0 errors ✓ | 0 warnings ✓ `.
 
-### What to do if `R CMD check` fails
+### What to do if `devtools::check()` fails
 
-1. Read the error message at the bottom of the Build pane. You want to see "R CMD check succeeded." If not, there is a problem. The error message will often provide a clue as to where in your code the error occurred.
+1. Read the error message carefully. You always want to see `0 errors ✓ | 0 warnings ✓` under the `R CMD check results`. If not, there is a problem. The error message will often provide a clue as to where in your code the error occurred.
 
 2. If that error message is not detailed enough, go to the `your.package.rcheck` folder, which should be located in the same directory as `your.package` on your computer. This is a folder created by the `R CMD check` process, and it will be automatically deleted if the check process succeeds. If the process fails, the `your.package.rcheck` folder stays around so that you can examine it. The key file is `testthat.Rout.fail`, which should be in the `tests` directory. It has more details on what went wrong.
 
 The most common source of errors is something wrong with the hint code chunks, which are not evaluated when you just Run Document. Make sure the `eval = FALSE` argument is set in the code chunk for all hints. 
+
+### Try out the tutorial like a student
+
+Test your tutorial from a student's perspective after completing package checks by following this local testing workflow. You can do this without the hustle of needing to push changes to the main repository and re-download the package. First, temporarily disable renv by running `renv::deactivate()` to prevent installation conflicts that can cause issues with `devtools::install()`. Next, install your local package using `devtools::install()` and when prompted about updating packages, choose to update everything to ensure all dependencies are current. Once installation is complete, run your tutorial with `learnr::run_tutorial("tutorial_name", "your_package_name")`, replacing the placeholder names with your actual tutorial and package names. This allows you to test the tutorial in a clean environment similar to what students will experience, checking that all code chunks run without errors, instructions are clear, and there's no dependence on objects from your development environment. Finally, don't forget to reactivate renv by running `renv::activate()` to return to your managed environment.
 
 ### Difficult bugs
 
@@ -497,10 +541,3 @@ Error: Cannot find the file(s): "images/rproj.png"
 But the file is there! You can see it! The tests work on your local machine. The easiest solution is to delete the file (and commit that change). And then change the name of the file to something else and use it.
 
 * `R CMD check` will test that all tutorials have the default code chunks exactly as they are in the Helper Tutorial template. So, use the template. If either the "Information" or "Download answers" chunks are missing, `R CMD check` will return something like "Missing a component part from file /path/to/your/Rmd/file.Rmd".
-
-
-
-
-
-
-

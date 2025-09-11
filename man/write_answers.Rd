@@ -4,30 +4,15 @@
 \alias{write_answers}
 \title{Write tutorial answers to file}
 \usage{
-write_answers(file, session, is_test = FALSE)
+write_answers(file, obj)
 }
 \arguments{
-\item{file}{Location to render answers to. Output file type determined by
-file suffix. Only "html" is acceptable.}
+\item{file}{Output file path (should end in .html).}
 
-\item{session}{Session object from \code{Shiny} with \code{learnr}.}
-
-\item{is_test}{\code{TRUE}/\code{FALSE} depending on whether or not we are just testing
-the function. Default is \code{TRUE}.}
+\item{obj}{Either a Shiny session object (from learnr) or a list of submissions
+(as returned by get_submissions_from_learnr_session()).}
 }
 \description{
-Take a tutorial session, extract out all the submitted answers,
-and write out an html file with all of those answers.
-}
-\details{
-We only keep track of the questions/exercises that the student has
-completed. The other obvious approach is to keep all the
-questions/exercises and leave unanswered ones as NA. Not sure if that
-approach is better, or even possible.
-}
-\examples{
-if(interactive()){
-  write_answers("getting-started_answers.html", sess)
-}
-
+Take a tutorial session (or a submission list), extract all submitted answers,
+and write out an HTML file with those answers.
 }

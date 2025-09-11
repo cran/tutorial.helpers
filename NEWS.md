@@ -1,3 +1,17 @@
+# tutorial.helpers 0.6.0
+
+* Replace process_submissions() with submissions_summary().
+
+* Remove RStudio material, including addins.
+
+* Rename tutorial to "Getting Started."
+
+* Change check_tutorial_defaults() to make it more flexible.
+
+* Add "Introduction to R" tutorial.
+
+* Change set_binary_only_r() to set_rprofile_settings().
+
 # tutorial.helpers 0.5.0
 
 * make_exercise() no longer includes '-ex' in code chunk labels for exercises.

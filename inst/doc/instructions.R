@@ -1,3 +1,12 @@
+## ## Interacting with sites with `GET()`
+## ###
+## 
+## In order to get data from an API, we use the **httr** package.
+## The package is designed to imitate standard HTTP in R.
+## Read more about HTTP [here](https://www.jmarshall.com/easy/http/).
+## 
+## ### Exercise 1
+
 ## ### Exercise 2
 ## 
 ## Start your code with `cces`. Use the pipe operator `|>` to add the
@@ -25,6 +34,8 @@
 ## for discussion of other relational operators in R.
 ## A single equation symbol, `=`, is used to set something equal to
 ## something else.
+
+## <button onclick = "transfer_code(this)">Copy previous code</button>
 
 ## ```{r ex-1-hint-1, eval = FALSE}
 ## This is an example hint. Normally sentences like these
@@ -80,10 +91,37 @@
 # x <- read_csv("data/myfile.csv")
 
 
+## > getwd()
+## [1] "/Users/davidkane/Desktop/projects/r4ds.tutorials"
+## > setwd("inst/tutorials/031-data-files/")
+## > getwd()
+## [1] "/Users/davidkane/Desktop/projects/r4ds.tutorials/inst/tutorials/031-data-files"
+## >
+
 ## ```{r}
 ## include_graphics("images/example.png")
 ## ```
 
+## <pre><code>```{r}
+## 1 + 1
+## ```</code></pre>
+
+## <pre><code>
+## > tutorial.helpers::show_file("quarto-1.qmd")
+## ---
+## title: "Quarto 1"
+## author: David Kane
+## format: html
+## execute:
+##   echo: false
+## ---
+## <pre><code>```{r}
+## suppressPackageStartupMessages(library(tidyverse))
+## library(palmerpenguins)
+## ```</code></pre>
+## >
+## </code></pre>
+
 ## ----eval = FALSE-------------------------------------------------------------
-# rmarkdown::render("inst/tutorials/02-terminal/tutorial.Rmd")
+# rmarkdown::render("file_path")
 
