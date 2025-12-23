@@ -1,3 +1,11 @@
+# tutorial.helpers 0.6.1
+
+* Add "Generative AI" section to "Introduction to R" tutorial.
+
+* Add "Introduction to Python" tutorial.
+
+* Fix make_exercise(). Change the default to "no-answer".
+
 # tutorial.helpers 0.6.0
 
 * Replace process_submissions() with submissions_summary().

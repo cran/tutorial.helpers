@@ -1,6 +1,6 @@
 Package: tutorial.helpers
 Title: Helper Functions for Creating Tutorials
-Version: 0.6.0
+Version: 0.6.1
 Authors@R: 
     person(given = "David",
            family = "Kane",
@@ -25,9 +25,9 @@ BugReports: https://github.com/PPBDS/tutorial.helpers/issues
 URL: https://ppbds.github.io/tutorial.helpers/,
         https://github.com/PPBDS/tutorial.helpers
 NeedsCompilation: no
-Packaged: 2025-09-10 19:28:53 UTC; dkane
+Packaged: 2025-12-22 18:59:23 UTC; dkane
 Author: David Kane [aut, cre, cph] (ORCID:
     <https://orcid.org/0000-0002-6660-3934>)
 Maintainer: David Kane <dave.kane@gmail.com>
 Repository: CRAN
-Date/Publication: 2025-09-11 05:10:02 UTC
+Date/Publication: 2025-12-23 06:10:11 UTC
